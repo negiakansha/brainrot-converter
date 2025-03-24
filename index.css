@@ -1,0 +1,20 @@
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* .column .buttonContainer {
+  text-align: right;
+} */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.container {
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
