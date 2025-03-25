@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrot Converter</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="container">
+    <h1>Text to BrainRot Converter</h1>
+    <p>Welcome to Text to BrainRot Converter! Type or paste some text that you don't understand to turn it into a summarized, Gen Z slang paragraph.</p>
+    <br>
+    <div class="row">
+        <div class="column">
+            <form action="/convert" method="post">
+                <p><label>Enter the text you want summarized:</label></p>
+                <textarea name="input_text" rows="10" cols="70"></textarea>
+                <br><br>
+                <div class="buttonContainer">
+                    <input type="submit" value="Convert Text">
+                </div>
+            </form>
+        </div>
+        <div class="column">
+            <p><label>Summarized text:</label></p>
+            <textarea rows="10" cols="70">{{ summarized_text }}</textarea>
+        </div>
+    </div>
+</body>
+</html>
