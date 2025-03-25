@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+from summarizer import summarize_text
+
 
 app = Flask(__name__)
 
@@ -16,7 +18,7 @@ def convert_text():
   input_text = request.form['input_text']
   
   # Temp location to where we are going to do all the 
-  summarized_text = f"Brainrot version of: {input_text}"  # Placeholder 
+  summarized_text = summarize_text(input_text) # placeholder
   return render_template('index.html', summarized_text=summarized_text)
 
 if __name__ == '__main__':
