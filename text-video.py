@@ -29,7 +29,7 @@ n_lines = len(lines)
 duration_per_line = total_duration / n_lines
 
 # ---- Step 5: Generate text images and convert to ImageClips ----
-video_size = (1280, 720)
+video_size = (888, 1570)
 clips = []
 
 # Use a basic font path — change this if you have a different font
@@ -47,27 +47,17 @@ for i, line in enumerate(lines):
     except:
         font = ImageFont.load_default()
 
-    # Add a semi-transparent black rectangle as background for the text
+    # Add a semi-transparent black rectangle as background for the text -> Not used
     text_size = draw.textbbox((0, 0), line, font=font)
     text_w = text_size[2] - text_size[0]
     text_h = text_size[3] - text_size[1]
     
-    # Position at the bottom of the screen with padding
-    position_x = (video_size[0] - text_w) // 2
-    position_y = video_size[1] - text_h - 50  # 50px from bottom
-    
-    # Draw text background (semi-transparent black box)
-    padding = 10
-    box_coords = [
-        position_x - padding, 
-        position_y - padding,
-        position_x + text_w + padding, 
-        position_y + text_h + padding
-    ]
-    draw.rectangle(box_coords, fill=(0, 0, 0, 180))  # Semi-transparent black
+    # Position at the center of the screen
+    position_x = (video_size[0] - text_w) // 2  # center horizontally
+    position_y = (video_size[1] - text_h) // 2  # center vertically
     
     # Draw the text in white
-    draw.text((position_x, position_y), line, fill="white", font=font)
+    draw.text((position_x, position_y), line, fill="white", stroke_width = 1, stroke_fill = "white", font=font)
 
     # Save as temporary file
     frame_filename = f"frame_{i}.png"
