@@ -1,3 +1,7 @@
+:root {
+  --button-color: #2EE59D
+}
+
 body {
   background-color: black;
   color: white;
@@ -18,13 +22,9 @@ body {
   border: 1px solid rgb(95 97 110);
   border-radius: 0.5em;
   padding: 20px;
-  width: 30em;
+  width: 45em;
   position: absolute;
   mask: linear-gradient(120deg, rgba(100, 100, 100, 0.8) 40%, #000, #000c 60%);
-}
-
-.intro-text {
-  padding-bottom: 5px;
 }
 
 textarea {
@@ -37,7 +37,7 @@ textarea {
 }
 
 p {
-  font-size: 17px;
+  font-size: 19px;
 }
 
 textarea:focus {
@@ -61,12 +61,58 @@ textarea:focus {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .convert-button:hover {
-  background-color: #2EE59D;
+  background-color: var(--button-color);
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
   color: #fff;
   transform: translateY(-7px);
+}
+
+/*Loader*/
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loader-text {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+#video {
+  display: none;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 5px solid var(--button-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

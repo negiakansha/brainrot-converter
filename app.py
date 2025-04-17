@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from summarizer import summarize_text
+from text_video import create_video
 
 
 app = Flask(__name__)
@@ -17,9 +18,16 @@ def convert_text():
   # Extract the text from the form
   input_text = request.form['input_text']
   
-  # Temp location to where we are going to do all the 
-  summarized_text = summarize_text(input_text) # placeholder
-  return render_template('index.html', summarized_text=summarized_text)
+  # Summarize text
+  summarized_text = summarize_text(input_text)
+
+  #Moving summarized text into video format
+  finished = create_video(summarized_text)
+
+  if finished:
+    return render_template('video.html', finished = finished)
+
+  # return render_template('index.html', summarized_text=summarized_text)
 
 if __name__ == '__main__':
   app.run(debug=True)

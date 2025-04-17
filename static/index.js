@@ -1,7 +1,9 @@
-let constrain = 900;
+let constrain = 2000;
 let mouseOverContainer = document.getElementById("ex1");
 let ex1Layer = document.getElementById("ex1-layer");
+var finished = false;
 
+//website UI graphics
 function transforms(x, y, el) {
   let box = el.getBoundingClientRect();
   let calcX = -(y - box.y - (box.height / 2)) / constrain;
@@ -24,3 +26,18 @@ mouseOverContainer.onmousemove = function(e) {
     transformElement(ex1Layer, position);
   });
 };
+
+//preloader
+var loader = document.getElementById("loader");
+var loaderText = document.getElementById("loader-text");
+var video = document.getElementById("video");
+if (finished) {
+  loader.style.display = "none";
+  loaderText.style.display = "none";
+  video.style.display = "block";
+}
+
+// When the user clicks the convert button, open video
+function openVideoPage() {
+  window.location.href = "video.html";
+}

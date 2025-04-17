@@ -9,12 +9,11 @@
 <body id="ex1" class="container">
     <div id="ex1-layer" class="box">
         <h1>Brainrot Converter</h1>
-        <p class="intro-text">Welcome to Text to BrainRot Converter! Type or paste text you don't understand to turn it into a summarized, Gen Z slang paragraph.</p>
+        <p class="intro-text">Type or paste text to convert it into a Minecraft Parkour Video.</p>
         <form action="/convert" method="post">
-            <textarea name="input_text" rows="10" cols="50">Enter text here!</textarea>
-            <input class="convert-button"  type="submit" value="Convert">
+            <textarea name="input_text" rows="15" cols="75">Enter text here!</textarea>
+            <input class="convert-button" onclick="openVideoPage()" type="submit" value="Convert">
         </form>
-        <textarea rows="10" cols="50">{{ summarized_text }}</textarea>
     </div>
     <script src="../static/index.js"></script>
 </body>
