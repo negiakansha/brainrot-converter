@@ -24,8 +24,8 @@ def convert_text():
   #Moving summarized text into video format
   finished = create_video(summarized_text)
 
-  if finished:
-    return render_template('video.html', finished = finished)
+  # if finished:
+  return render_template('video.html', finished = finished)
 
   # return render_template('index.html', summarized_text=summarized_text)
 
