@@ -12,9 +12,17 @@
         <p class="intro-text">Type or paste text to convert it into a Minecraft Parkour Video.</p>
         <form action="/convert" method="post">
             <textarea name="input_text" rows="15" cols="75">Enter text here!</textarea>
-            <input class="convert-button" onclick="openVideoPage()" type="submit" value="Convert">
+            <input class="convert-button" onclick="startLoader()" type="submit" value="Convert">
         </form>
     </div>
+    <div id="loader">
+        <div id="minecraft"></div>
+        <div id="social">
+            <p class="loading_text">Loading...</p>
+            <p class="loading_text">This may take a while.</p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
     <script src="../static/index.js"></script>
 </body>
 </html>

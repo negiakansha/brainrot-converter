@@ -9,7 +9,6 @@ import os
 # pip install "Pillow<10"
 
 def create_video(summarized_text):
-    finished = False
     # ---- Step 1: Define your text ----
     # The text is 121 words long
     text = summarized_text
@@ -87,7 +86,7 @@ def create_video(summarized_text):
     for i in range(n_lines):
         os.remove(f"frame_{i}.png")
 
-    finished = True
-    return finished
+    # return True because video has been generated
+    return True
 
 # Takes about 1:20 to finish rendering

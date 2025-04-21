@@ -10,7 +10,7 @@ app = Flask(__name__)
 def home():
   # The first param is the file of the homepage we are rendering
   # The second param is  what the summarized text we are going to show
-  return render_template('index.html', summarized_text="")
+  return render_template('index.html')
 
 # Defines a new route /convert that only accepts POST requests.
 @app.route('/convert', methods=['POST'])
@@ -24,10 +24,7 @@ def convert_text():
   #Moving summarized text into video format
   finished = create_video(summarized_text)
 
-  # if finished:
   return render_template('video.html', finished = finished)
-
-  # return render_template('index.html', summarized_text=summarized_text)
 
 if __name__ == '__main__':
   app.run(debug=True)

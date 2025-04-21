@@ -6,15 +6,34 @@
         <title>Brainrot Converter</title>
         <link rel="stylesheet" href="../static/index.css">
     </head>
-    <body id="ex1" class="container">
-        <div id="ex1-layer">
-            <div id="loader">
-                <div class="spinner"></div>
-            </div>
-            <p id="loader-text">This may take a while...</p>
-        </div>
+    <body class="container">
         <video id="video" width="auto" height="90%" controls>
             <source src="../output.mp4" type="video/mp4">
         </video>
+        <script>
+            // const checkVideoExists = async () => {
+            //     try {
+            //         const response = await fetch('../output.mp4', { method: 'HEAD' });
+            //         if (response.ok) {
+            //             // File exists, create the video element
+            //             const videoContainer = document.getElementById('video-container');
+            //             videoContainer.innerHTML = `
+            //                 <video width="auto" height="90%" controls>
+            //                     <source src="../output.mp4" type="video/mp4">
+            //                     Your browser does not support the video tag.
+            //                 </video>
+            //             `;
+            //         } else {
+            //             // Try again later
+            //             setTimeout(checkVideoExists, 2000); // Check every 2 seconds
+            //         }
+            //     } catch (error) {
+            //         setTimeout(checkVideoExists, 2000);
+            //     }
+            // };
+        
+            // checkVideoExists();
+        </script>
+        <script src="../static/index.js"></script>
     </body>
 </html>
