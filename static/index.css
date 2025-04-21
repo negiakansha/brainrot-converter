@@ -111,6 +111,19 @@ textarea:focus {
   animation: spin 1s linear infinite;
 }
 
+#loading-text {
+  display: none;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: white;
+  background-color: #42ff52;
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

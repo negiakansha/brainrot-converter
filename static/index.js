@@ -38,6 +38,13 @@ if (finished) {
 }
 
 // When the user clicks the convert button, open video
+/*
 function openVideoPage() {
   window.location.href = "video.html";
+}
+  */
+
+
+function openVideoPage() {
+  document.getElementById("loading-text").style.display = "block";
 }

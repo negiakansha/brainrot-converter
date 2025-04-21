@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Brainrot Converter</title>
-        <link rel="stylesheet" href="../static/index.css">
-    </head>
-    <body id="ex1" class="container">
-        <div id="ex1-layer">
-            <div id="loader">
-                <div class="spinner"></div>
-            </div>
-            <p id="loader-text">This may take a while...</p>
-        </div>
-        <video id="video" width="auto" height="90%" controls>
-            <source src="../output.mp4" type="video/mp4">
-        </video>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrot Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body class="container">
+    <div id="loader">
+        <div class="spinner"></div>
+        <p id="loader-text">This may take a while...</p>
+    </div>
+
+    <script>
+        function checkIfVideoExists() {
+            fetch('/check_video')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.exists) {
+                        // Redirect to the page where the video is going to show
+                        window.location.href = "/watch";
+                    } else {
+                        setTimeout(checkIfVideoExists, 2000);
+                    }
+                });
+        }
+
+        window.onload = function() {
+            checkIfVideoExists();
+        };
+    </script>
+</body>
 </html>
