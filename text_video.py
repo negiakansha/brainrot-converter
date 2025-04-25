@@ -8,85 +8,86 @@ import os
 # pip install gTTS
 # pip install "Pillow<10"
 
+from gtts import gTTS
+from moviepy.editor import AudioFileClip, CompositeVideoClip, VideoFileClip, ImageClip
+from PIL import Image, ImageDraw, ImageFont
+import os
+
 def create_video(summarized_text):
-    # ---- Step 1: Define your text ----
-    # The text is 121 words long
-    text = summarized_text
+    finished = False
 
-    # ---- Step 2: Convert text to speech ----
-    tts = gTTS(text)
-    tts.save("audio.mp3")
+    # Get absolute path to the static folder
+    static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 
-    # ---- Step 3: Load audio and get duration ----
-    audio_clip = AudioFileClip("audio.mp3")
+    # Ensure static folder exists
+    os.makedirs(static_dir, exist_ok=True)
+
+    # Paths
+    audio_path = os.path.join(static_dir, "audio.mp3")
+    video_path = os.path.join(static_dir, "output.mp4")
+    background_path = os.path.join(static_dir, "background.mp4")  # move background here or change this
+
+    # --- Convert text to speech ---
+    tts = gTTS(summarized_text)
+    tts.save(audio_path)
+
+    # --- Load audio and get duration ---
+    audio_clip = AudioFileClip(audio_path)
     total_duration = audio_clip.duration
 
-    # ---- Step 4: Split text into chunks (e.g., 5 words per line) ----
-    words = text.split()
+    # --- Prepare text frames ---
+    words = summarized_text.split()
     words_per_line = 5
     lines = [' '.join(words[i:i + words_per_line]) for i in range(0, len(words), words_per_line)]
-    n_lines = len(lines)
-    duration_per_line = total_duration / n_lines
-
-    # ---- Step 5: Generate text images and convert to ImageClips ----
-    video_size = (888, 1570)
+    
+    # Estimate timing better
+    total_chars = sum(len(line) for line in lines)
     clips = []
-
-    # Use a basic font path — change this if you have a different font
-    font_path = "arial.ttf"  # Windows usually has it. Else try "DejaVuSans.ttf"
-
-    for i, line in enumerate(lines):
-        start_time = i * duration_per_line
-
-        # Create image with text using PIL - transparent background
+    current_time = 0
+    video_size = (888, 1570)
+    font_path = "arial.ttf"
+    
+    for line in lines:
+        # Better timing estimate
+        line_duration = total_duration * (len(line) / total_chars)
+    
         img = Image.new('RGBA', video_size, color=(0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
-        
         try:
             font = ImageFont.truetype(font_path, 50)
         except:
             font = ImageFont.load_default()
-
-        # Add a semi-transparent black rectangle as background for the text -> Not used
-        text_size = draw.textbbox((0, 0), line, font=font)
-        text_w = text_size[2] - text_size[0]
-        text_h = text_size[3] - text_size[1]
-        
-        # Position at the center of the screen
-        position_x = (video_size[0] - text_w) // 2  # center horizontally
-        position_y = (video_size[1] - text_h) // 2  # center vertically
-        
-        # Draw the text in white
-        draw.text((position_x, position_y), line, fill="white", stroke_width = 1, stroke_fill = "white", font=font)
-
-        # Save as temporary file
-        frame_filename = f"frame_{i}.png"
-        img.save(frame_filename)
-
-        # Create an ImageClip
-        clip = ImageClip(frame_filename).set_duration(duration_per_line).set_start(start_time).fadein(0.2).fadeout(0.2)
+    
+        text_w, text_h = draw.textbbox((0, 0), line, font=font)[2:]
+        pos_x = (video_size[0] - text_w) // 2
+        pos_y = (video_size[1] - text_h) // 2
+        draw.text((pos_x, pos_y), line, fill="white", stroke_width=1, stroke_fill="white", font=font)
+    
+        frame_file = os.path.join(static_dir, f"frame_{len(clips)}.png")
+        img.save(frame_file)
+    
+        clip = (
+            ImageClip(frame_file)
+            .set_duration(line_duration)
+            .set_start(current_time)
+            .fadein(0.2)
+            .fadeout(0.2)
+        )
         clips.append(clip)
+        current_time += line_duration
 
-    # ---- Step 6: Background clip ----
-    background = VideoFileClip("background.mp4").subclip(0, total_duration).resize(video_size)
+    # --- Load background ---
+    background = VideoFileClip(background_path).subclip(0, total_duration).resize(video_size)
 
-    # ---- Step 7: Combine everything ----
-    video = CompositeVideoClip([background, *clips]).set_audio(audio_clip)
-
-    # ---- Step 8: Export video ----
-    video.write_videofile(
-        "output.mp4", 
-        fps=15,
-        preset='ultrafast',  # Faster encoding
-        audio_codec='aac',  # Efficient audio codec
-        audio_bitrate='128k'  # Reasonable audio quality
-    )
+    # --- Combine all ---
+    final_video = CompositeVideoClip([background, *clips]).set_audio(audio_clip)
+    final_video.write_videofile(video_path, fps=15, preset='ultrafast', audio_codec='aac', audio_bitrate='128k')
 
     # ---- Step 9: Clean up images ----
     for i in range(n_lines):
         os.remove(f"frame_{i}.png")
 
-    # return True because video has been generated
-    return True
+    finished = True
+    return finished
 
 # Takes about 1:20 to finish rendering

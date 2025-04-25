@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Brainrot Video</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body class="container">
+    <video width="80%" height="80%" controls>
+        <source src="{{ url_for('static', filename='output.mp4') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <br><br>
+    <a href="{{ url_for('home') }}">
+        <button style="padding: 10px 20px;">Back to Home</button>
+    </a>
+</body>
+</html>
