@@ -13,11 +13,13 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 def home():
   # The first param is the file of the homepage we are rendering
   # The second param is what the summarized text we are going to show
-  return render_template('index.html', summarized_text="")
+  return render_template('index.html')
 
 
 @app.route('/convert', methods=['POST'])
 def convert_text():
+    test()
+    
     input_text = request.form['input_text']
     
     # Step 1: Summarize the text
@@ -30,7 +32,10 @@ def convert_text():
     thread = threading.Thread(target=create_video, args=(slang_text,))
     thread.start()
 
-    return render_template('video.html', summarized_text=slang_text)
+    return render_template("video.html")
+
+def test():
+    return render_template("video.html")
   
 @app.route('/check_video')
 def check_video():

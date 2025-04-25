@@ -86,6 +86,19 @@ textarea:focus {
   justify-content: center;
 }
 
+#loader-2 {
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
 #video {
   display: block;
 }
@@ -104,19 +117,6 @@ textarea:focus {
  color:white;
  font-family:monospace;
  font-size:15px;
-}
-
-#loading-text {
-  display: none;
-  font-weight: bold;
-  font-size: 1.5em;
-  color: white;
-  background-color: #42ff52;
-  padding: 15px 20px;
-  border-radius: 10px;
-  text-align: center;
-  margin-top: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .loading_text{

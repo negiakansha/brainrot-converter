@@ -14,8 +14,6 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 
 def create_video(summarized_text):
-    finished = False
-
     # Get absolute path to the static folder
     static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 
@@ -83,11 +81,15 @@ def create_video(summarized_text):
     final_video = CompositeVideoClip([background, *clips]).set_audio(audio_clip)
     final_video.write_videofile(video_path, fps=15, preset='ultrafast', audio_codec='aac', audio_bitrate='128k')
 
-    # ---- Step 9: Clean up images ----
-    for i in range(n_lines):
-        os.remove(f"frame_{i}.png")
+    # --- Cleanup ---
+    for i in range(len(lines)):
+        try:
+            os.remove(os.path.join(static_dir, f"frame_{i}.png"))
+        except FileNotFoundError:
+            pass
 
-    finished = True
-    return finished
+    print("Static path absolute:", os.path.abspath(video_path))
+    print("File exists?", os.path.exists(video_path))
+    return True
 
 # Takes about 1:20 to finish rendering

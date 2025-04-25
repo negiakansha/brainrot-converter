@@ -7,33 +7,33 @@
         <link rel="stylesheet" href="../static/index.css">
     </head>
     <body class="container">
-        <video id="video" width="auto" height="90%" controls>
-            <source src="../output.mp4" type="video/mp4">
-        </video>
+        <div id="loader-2">
+            <div id="minecraft"></div>
+            <div id="social">
+                <p class="loading_text">Loading...</p>
+                <p class="loading_text">This may take a while.</p>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+        <script src="../static/chicken.js"></script>
         <script>
-            // const checkVideoExists = async () => {
-            //     try {
-            //         const response = await fetch('../output.mp4', { method: 'HEAD' });
-            //         if (response.ok) {
-            //             // File exists, create the video element
-            //             const videoContainer = document.getElementById('video-container');
-            //             videoContainer.innerHTML = `
-            //                 <video width="auto" height="90%" controls>
-            //                     <source src="../output.mp4" type="video/mp4">
-            //                     Your browser does not support the video tag.
-            //                 </video>
-            //             `;
-            //         } else {
-            //             // Try again later
-            //             setTimeout(checkVideoExists, 2000); // Check every 2 seconds
-            //         }
-            //     } catch (error) {
-            //         setTimeout(checkVideoExists, 2000);
-            //     }
-            // };
-        
-            // checkVideoExists();
+            function checkIfVideoExists() {
+                fetch('/check_video')
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log("the data ??? is ", data);
+                        if (data.exists) {
+                            // Redirect to the page where the video is going to show
+                            window.location.href = "/watch";
+                        } else {
+                            setTimeout(checkIfVideoExists, 2000);
+                        }
+                    });
+              }
+              
+              window.onload = function() {
+                checkIfVideoExists();
+              };
         </script>
-        <script src="../static/index.js"></script>
     </body>
 </html>
