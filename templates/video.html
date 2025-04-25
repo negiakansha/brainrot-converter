@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Brainrot Converter</title>
+        <link rel="stylesheet" href="../static/index.css">
+    </head>
+    <body class="container">
+        <div id="loader-2">
+            <div id="minecraft"></div>
+            <div id="social">
+                <p class="loading_text">Loading...</p>
+                <p class="loading_text">This may take a while.</p>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+        <script src="../static/chicken.js"></script>
+        <script>
+            function checkIfVideoExists() {
+                fetch('/check_video')
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log("the data ??? is ", data);
+                        if (data.exists) {
+                            // Redirect to the page where the video is going to show
+                            window.location.href = "/watch";
+                        } else {
+                            setTimeout(checkIfVideoExists, 2000);
+                        }
+                    });
+              }
+              
+              window.onload = function() {
+                checkIfVideoExists();
+              };
+        </script>
+    </body>
+</html>

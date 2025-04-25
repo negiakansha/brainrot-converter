@@ -1,3 +1,7 @@
+:root {
+  --button-color: #2EE59D
+}
+
 body {
   background-color: black;
   color: white;
@@ -18,13 +22,9 @@ body {
   border: 1px solid rgb(95 97 110);
   border-radius: 0.5em;
   padding: 20px;
-  width: 30em;
+  width: 45em;
   position: absolute;
   mask: linear-gradient(120deg, rgba(100, 100, 100, 0.8) 40%, #000, #000c 60%);
-}
-
-.intro-text {
-  padding-bottom: 5px;
 }
 
 textarea {
@@ -37,7 +37,7 @@ textarea {
 }
 
 p {
-  font-size: 17px;
+  font-size: 19px;
 }
 
 textarea:focus {
@@ -61,12 +61,66 @@ textarea:focus {
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  margin: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .convert-button:hover {
-  background-color: #2EE59D;
+  background-color: var(--button-color);
   box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
   color: #fff;
   transform: translateY(-7px);
+}
+
+/* CHICKEN LOADER */
+#loader {
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#loader-2 {
+  background: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: block;
+  align-items: center;
+  justify-content: center;
+}
+
+#video {
+  display: block;
+}
+
+#minecraft {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+#social{
+ position:fixed;
+ bottom:20px;
+ width:100vw;
+ text-align:center;
+ color:white;
+ font-family:monospace;
+ font-size:15px;
+}
+
+.loading_text{
+  text-decoration: none;
+  font-weight:bold;
+  color:white;
 }

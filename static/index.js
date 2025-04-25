@@ -1,7 +1,8 @@
-let constrain = 900;
+let constrain = 2000;
 let mouseOverContainer = document.getElementById("ex1");
 let ex1Layer = document.getElementById("ex1-layer");
 
+//website UI graphics
 function transforms(x, y, el) {
   let box = el.getBoundingClientRect();
   let calcX = -(y - box.y - (box.height / 2)) / constrain;
