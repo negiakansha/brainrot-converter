@@ -4,3 +4,6 @@ tempCodeRunnerFile.py
 __pycache__/llama.cpython-311.pyc
 __pycache__/summarizer.cpython-311.pyc
 __pycache__/text_video.cpython-311.pyc
+static/output.mp4
+static/audio.mp3
+

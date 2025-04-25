@@ -8,10 +8,6 @@ import os
 # pip install gTTS
 # pip install "Pillow<10"
 
-from gtts import gTTS
-from moviepy.editor import AudioFileClip, CompositeVideoClip, VideoFileClip, ImageClip
-from PIL import Image, ImageDraw, ImageFont
-import os
 
 def create_video(summarized_text):
     # Get absolute path to the static folder
