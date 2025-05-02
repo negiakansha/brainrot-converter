@@ -1,7 +1,7 @@
 Flask
-moviepy
+moviepy==1.0.3
 gTTS
-Pillow
+Pillow==9.5.0
 ollama
 transformers
 torch
