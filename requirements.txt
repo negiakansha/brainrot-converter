@@ -1,0 +1,7 @@
+Flask
+moviepy
+gTTS
+Pillow
+ollama
+transformers
+torch
