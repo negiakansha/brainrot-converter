@@ -18,7 +18,18 @@ def home():
 
 @app.route('/convert', methods=['POST'])
 def convert_text():
-    test()
+    # Check for and remove existing files
+    audio_path = os.path.join(app.static_folder, 'audio.mp3')
+    video_path = os.path.join(app.static_folder, 'output.mp4')
+    
+    # Delete existing files if they exist
+    if os.path.exists(audio_path):
+        os.remove(audio_path)
+        print(f"Deleted existing {audio_path}")
+        
+    if os.path.exists(video_path):
+        os.remove(video_path)
+        print(f"Deleted existing {video_path}")
     
     input_text = request.form['input_text']
     
@@ -34,9 +45,6 @@ def convert_text():
 
     return render_template("video.html")
 
-def test():
-    return render_template("video.html")
-  
 @app.route('/check_video')
 def check_video():
     video_path = os.path.join(app.static_folder, 'output.mp4')
