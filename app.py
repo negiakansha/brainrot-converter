@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from summarizer import summarize_text
 from text_video import create_video
-from llama import to_genz_slang
+from gemma import to_genz_slang
 import threading
 import time
 import os
@@ -35,11 +35,16 @@ def convert_text():
     
     # Step 1: Summarize the text
     summarized_text = summarize_text(input_text)
-
-    # Step 2: Convert to Gen Z slang
+    print("Summarized text:\n ", summarized_text)
+    
+    # Step 2: Convert to Gen Z slang 
+    # Using gemma:4b
     slang_text = to_genz_slang(summarized_text)
-
+    print("Slang text: \n", slang_text)
     # Step 3: Generate video from slang
+    # Create the audio
+    # Create images of the subtitles
+    # Combine both to a pre determined video
     thread = threading.Thread(target=create_video, args=(slang_text,))
     thread.start()
 

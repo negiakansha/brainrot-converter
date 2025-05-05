@@ -1,0 +1,7 @@
+Flask
+transformers
+torch
+gTTS
+moviepy==1.0.3
+Pillow<10
+ollama

@@ -4,21 +4,28 @@ import torch
 # Check if GPU is available
 device = 0 if torch.cuda.is_available() else -1  
 
-# init the summarization model
-summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
 
-def chunk_text(text, max_tokens=400):
+# init the summarization model
+# if the GPU is avaiable it uses that else the cpu
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
+    
+
+
+def chunk_text(text, max_words=400):
     """
-    Splits text into chunks of approximately max_tokens words each.
+    Splits text into chunks of approximately max_words words each.
     """
     words = text.split()
     chunks = []
     
-    for i in range(0, len(words), max_tokens):
-        chunks.append(" ".join(words[i:i + max_tokens]))
+    # Loop over each word in the list words 
+    for i in range(0, len(words), max_words):
+        # Keep looping and adding each word to a string to store in the chunk list
+        # After reaching 400 words a new chunk is started
+        chunks.append(" ".join(words[i:i + max_words]))
 
     return chunks
-
+     
 def summarize_text(input_text):
     if not input_text.strip():
         return "No text provided to summarize."
@@ -32,7 +39,7 @@ def summarize_text(input_text):
     
     try:
         # Break up long text into 400-word chunks
-        text_chunks = chunk_text(input_text, max_tokens=500)
+        text_chunks = chunk_text(input_text, max_words=400)
 
         # Summarize each chunk
         summarized_chunks = []
