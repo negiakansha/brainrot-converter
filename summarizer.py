@@ -10,11 +10,8 @@ device = 0 if torch.cuda.is_available() else -1
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=device)
     
 
-
+# Splits text into chunks of about max_words words each.
 def chunk_text(text, max_words=400):
-    """
-    Splits text into chunks of approximately max_words words each.
-    """
     words = text.split()
     chunks = []
     
@@ -52,6 +49,7 @@ def summarize_text(input_text):
             min_summary_length = max(int(chunk_word_count * 1 / 2), 50)  # Ensure at least 50 words
 
             # Adjust max_length and min_length 
+            # Then put all the summarized chunks into a list 
             summary = summarizer(chunk, max_length=max_len, min_length=min_summary_length, do_sample=False)
             summarized_chunks.append(summary[0]['summary_text'])
 

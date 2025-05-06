@@ -54,16 +54,27 @@ def convert_text():
 def check_video():
     video_path = os.path.join(app.static_folder, 'output.mp4')
 
+    # Set a timeout limit of 15 sec to wait for the video to be ready
     timeout = 15
     start_time = time.time()
 
+    # This checks the storage size
+    # Each check would see if the storage size has change, and
+    # if it doesn't change after 3 checks then the video is ready
     last_size = 0
     stable_checks = 0
     max_stable_checks = 3
 
+    # Keep checking the file until the timeout period is reached
     while time.time() - start_time < timeout:
         if os.path.exists(video_path):
+            # This gets the size of the output.mp4 in the static folder
             current_size = os.path.getsize(video_path)
+            
+            # This then checks the size in comparison to the last check
+            # It needs to be the same 3 times in a row 
+            # If it is the same then it returns a json that the file exists
+            # If it isn't the same then the check restarts until it hits 3
             if current_size == last_size:
                 stable_checks += 1
                 if stable_checks >= max_stable_checks:
@@ -74,7 +85,8 @@ def check_video():
 
             last_size = current_size
 
-        time.sleep(2)  # Slightly faster checking 
+        # Wait an extra 2 seconds before the next check
+        time.sleep(2)  
 
     print("Video is still being created or an error occurred.")
     return {'exists': False}

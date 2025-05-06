@@ -7,7 +7,13 @@ import ollama
 model_name = "gemma3:4b"
 
 def to_genz_slang(input_text):
-    
+
+    # This code constructs a prompt to send to gemma3:4b.
+    # The goal is to translate the input text using Gen Z slang while keeping the full meaning.
+    # The model was told to act like a Gen Z TikToker and use casual, modern slang.
+    # It must NOT summarize, shorten, or remove important details.
+    # The prompt also provides several examples for context.
+
     prompt = (
         "Reword the following using Gen Z slang. Imagine you are a genz tiktoker. "
         "Keep the full meaning, but rephrase it casually with modern slang. "
@@ -27,6 +33,8 @@ def to_genz_slang(input_text):
 
     
     try:
+        # This generates the translated content and uses the model (gemma3:4b and the input prompt) then 
+        # returns the output with no trailing whitespace
         response = ollama.generate(model=model_name, prompt=prompt)
         return response['response'].strip()
     except Exception as e:
